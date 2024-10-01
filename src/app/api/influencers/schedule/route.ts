@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import chromium from '@sparticuz/chromium-min';
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 const isLocal = !!process.env.CHROME_EXECUTABLE_PATH;
+
+puppeteer.use(StealthPlugin());
 export const GET = async () => {
   const browser = await puppeteer.launch({
     args: isLocal ? puppeteer.defaultArgs() : chromium.args,
